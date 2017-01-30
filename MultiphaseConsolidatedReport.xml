@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Multiphase Consolidated Jenkins Automation Suite" preserve-order="true">
+    <test name="Multiphase Consolidated Jenkins Job"
+              preserve-order="true">
+        <classes>
+            <class name="automation.jenkins.tests.MultiphaseJob_Test" />
+        </classes>
+    </test>
+</suite>
