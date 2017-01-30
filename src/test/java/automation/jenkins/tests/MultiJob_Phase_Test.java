@@ -1,6 +1,6 @@
 package automation.jenkins.tests;
 
-import automation.jenkins.keyword.BuildMulitphaseJobEmail;
+import automation.jenkins.keyword.Build_MulitJob_Phase_Email;
 import automation.jenkins.report.ResultsIT;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 import org.w3c.tidy.Tidy;
 
-public class MultiphaseJob_Test extends BuildMulitphaseJobEmail {
+public class MultiJob_Phase_Test extends Build_MulitJob_Phase_Email {
 
     @Test
     public void createEmailableReportForMultiphaseJob() {
@@ -21,7 +21,7 @@ public class MultiphaseJob_Test extends BuildMulitphaseJobEmail {
         emailBody = prettyPrintHTML(emailBody);
         System.out.println(emailBody);
         try {
-            results.sendResultsMail(emailBody, multiphaseJobName + "  Results");
+            results.sendResultsMail(emailBody, multiJobName + "  Results");
         } catch (MessagingException | IOException e) {
         }
     }

@@ -9,16 +9,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 
-public class BuildMulitphaseJobEmail {
+public class Build_MulitJob_Phase_Email {
 
-    public String emailBody = null, greenBuildColorCode = "#2EFE2E", unstableBuildColorCode = "#FFFF00", failedBuildColorCode = "#F21010", abortedBuildColorCode = "D3D3D3";
-    String jenkinsURL = System.getProperty("jenkinsURL", "http://jenkins.mindtap.corp.web/");
-    //public String multiphaseJobName = System.getProperty("multiphaseJobName", "Jigsaw_QAD_Regression_Tests");
-    public String multiphaseJobName = System.getProperty("multiphaseJobName", "MTQ_Staging_Smoke_Test");
-    String multiphaseJobAPIURL = jenkinsURL + "job/" + multiphaseJobName + "/api/json";
-    String replyto = System.getProperty("replyTo", "manmohansingh@qainfotech.com");
-    String analyticsFlag = System.getProperty("buildAnalytics", "yes");
-    public String projectName = System.getProperty("projectName", "MTQ");
+    public String emailBody = null;
+    public String greenBuildColorCode = "#2EFE2E"; 
+    public String unstableBuildColorCode = "#FFFF00";
+    public String failedBuildColorCode = "#F21010";
+    public String abortedBuildColorCode = "D3D3D3";
+    String jenkinsURL = System.getProperty("jenkinsURL", "http://admin1.001.stage.trust.cloud.cengage.com/");
+    public String multiJobName = System.getProperty("multiJobName", "MultiJob_Trust_Staging_Test");
+    String multiphaseJobAPIURL = jenkinsURL + "job/" + multiJobName + "/api/json";
+    String replyto = System.getProperty("replyTo", "harshsehgal@qainfotech.com");
+    String analyticsFlag = System.getProperty("buildAnalytics", "no");
+    public String projectName = System.getProperty("projectName", "TRUST");
     public String analyticsChartsScript = "";
     JSONEntityResponseValues jsonObject = new JSONEntityResponseValues();
     convertTimeFormat timeConvert;
@@ -38,18 +41,19 @@ public class BuildMulitphaseJobEmail {
                     + "font-family: calibri;"
                     + "font-size: 100%;"
                     + "}"
-                    + "</style><title>" + multiphaseJobName + " Execution Report</title>";
+                    + "</style><title>" + multiJobName + " Execution Report</title>";
 
             emailBody += "</head><body>";
             emailBody += "\n<p>Hello All,<br />";
             emailBody += "\n<br />";
             emailBody += "\n<i> Greetings of the day!</i><br />";
             emailBody += "\n<br />";
-            emailBody += "\nPlease find below the execution result of <b>" + multiphaseJobName + "</b></p>";
+            emailBody += "\nPlease find below the execution result of <b>" + multiJobName + "</b></p>";
+            
 //            if (JSONEntityResponseValues.getJSONResponseOnlyForKey("color").contains("yellow")) {
-//                emailBody += "<br><table border=\"1\"><tr><td align=\"center\"><font color = Black>" + multiphaseJobName + "</font> </b></td><td bgcolor=\"" + unstableBuildColorCode + " align=\"center\"><font color = Black>FAIL</font></b></td></tr>";
+//                emailBody += "<br><table border=\"1\"><tr><td align=\"center\"><font color = Black>" + multiJobName + "</font> </b></td><td bgcolor=\"" + unstableBuildColorCode + " align=\"center\"><font color = Black>FAIL</font></b></td></tr>";
 //            } else if (JSONEntityResponseValues.getJSONResponseOnlyForKey("color").contains("green") || JSONEntityResponseValues.getJSONResponseOnlyForKey("color").contains("blue")) {
-//                emailBody += "<br><table border=\"2\"><tr><td align=\"center\"><font color = Black> <font color = Black>" + multiphaseJobName + "</font></b></td><td bgcolor=\"" + greenBuildColorCode + " align=\"center\"><font color = Black>PASS</font></b></td></tr>";
+//                emailBody += "<br><table border=\"2\"><tr><td align=\"center\"><font color = Black> <font color = Black>" + multiJobName + "</font></b></td><td bgcolor=\"" + greenBuildColorCode + " align=\"center\"><font color = Black>PASS</font></b></td></tr>";
 //            }
 ////            emailBody += "<table border=\"2\">";
 //            emailBody += "<tr><td bgcolor=\"#F6CECE\" align=\"center\"><font color = Black>Build Number</a></font></b></td>";
@@ -57,6 +61,7 @@ public class BuildMulitphaseJobEmail {
 //            emailBody += "<tr><td bgcolor=\"#F6CECE\" align=\"center\"><font color = Black>Last Build URL</a></font></b></td>";
 //            emailBody += "<td bgcolor=\"#E3CEF6\" align=\"center\"><font color = Black><a href= " + entityValue.getString("url") + ">" + (entityValue.getString("url"))
 //                    + "</a></font></b></td></tr></table><br><br>";
+            
             JSONArray entityValues = JSONEntityResponseValues.getJSONResponse("downstreamProjects");
             emailBody += "<table border=\"0\">";
             emailBody += "<tr></tr><td align=\"center\"><font color = Black><b>Job Name</b></font></td><td><b><font color = Black>Build Status</b></font></td><td><b><td align=\"center\"><font color = Black>Observations </b></font></td></tr>";
@@ -76,8 +81,10 @@ public class BuildMulitphaseJobEmail {
                     emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td>"
                             + "<td bgcolor=\"" + abortedBuildColorCode + " align=\"center\"><font color = Black>ABORTED</font></b></td>";
                 }
-//                emailBody += "<table border=\"2\">";
-//                emailBody += "<tr><td bgcolor=\"#F6CECE\" align=\"center\"><font color = Black>Last Build URL</a></font></b></td>";
+                
+//              emailBody += "<table border=\"2\">";
+//              emailBody += "<tr><td bgcolor=\"#F6CECE\" align=\"center\"><font color = Black>Last Build URL</a></font></b></td>";
+                
                 if (buildColor.contains("yellow") || buildColor.contains("red")) {
                     screenshotURL = buildURL+"ws/target/";
                     emailBody += "<td colspan=\"2\" bgcolor=\"#E3CEF6\" align=\"center\"><font color = Black><a href=" + screenshotURL + ">SCREENSHOTS</a></font></b></td></tr>";
@@ -85,21 +92,19 @@ public class BuildMulitphaseJobEmail {
                     consoleURL=buildURL+getLastBuildNumber(buildURL+"api/json")+"/console";
                     emailBody += "<td colspan=\"2\" bgcolor=\"#E3CEC6\" align=\"center\"><font color = Black><a href=" + consoleURL + ">CONSOLE OUTPUT</a></font></b></td></tr>";
                 }
-                // buildFailedJobEmail(buildColor, buildURL);
-//<a href="analytics.html">Click here to view Analytics Report</a>
+// 				buildFailedJobEmail(buildColor, buildURL);
+//				<a href="analytics.html">Click here to view Analytics Report</a>
             }
             emailBody += "</table>";
             addSalutationLines();
-
+            
             emailBody += "</font></body></html>";
         } catch (Exception e) {
 
         }
-
     }
 
     public void addAnalyticsCharts() {
-
         if (analyticsFlag.equalsIgnoreCase("yes")) {
             jsonObject.initiliazeEntity(multiphaseJobAPIURL);
             int pass = getPassCount(multiphaseJobAPIURL);
@@ -125,9 +130,7 @@ public class BuildMulitphaseJobEmail {
                     pass = getPassCount(buildURL);
                     System.out.println(name + "|passed:-" + pass + " & Failed:-" + (getTotalCount(buildURL) - pass));
                     analyticsChartsScript += ",['" + name + "'," + pass + "," + (getTotalCount(buildURL) - pass) + "]\n";
-
                 }
-
                 analyticsChartsScript += " ]);\n"
                         + "\n";
                 analyticsChartsScript += createDateTable(multiphaseJobAPIURL)
@@ -190,7 +193,6 @@ public class BuildMulitphaseJobEmail {
             } catch (Exception e) {
 
             }
-
         }
     }
 
@@ -201,7 +203,7 @@ public class BuildMulitphaseJobEmail {
             JSONObject entityValue = JSONEntityResponseValues.getJSONResponseForNode(localEntity, "lastBuild");
             number = entityValue.getString("number");
         } catch (JSONException ex) {
-            Logger.getLogger(BuildMulitphaseJobEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Build_MulitJob_Phase_Email.class.getName()).log(Level.SEVERE, null, ex);
         }
         return number;
     }
@@ -300,7 +302,7 @@ public class BuildMulitphaseJobEmail {
                 }
             }
         } catch (Exception e) {
-
+        	
         }
     }
 
@@ -313,7 +315,7 @@ public class BuildMulitphaseJobEmail {
 
         emailBody = emailBody + "<hr>" + "<i>Note: This is a system generated mail. Please do not reply." + " ";
         emailBody = emailBody + "If you have any queries mail to <a href=mailto:" + replyto
-                + "?subject=Reply-of-" + multiphaseJobName + "Automation-Status>" + projectName + " Test Automation Team</a></i>";
+                + "?subject=Reply-of-" + multiJobName + "Automation-Status>" + projectName + " Test Automation Team</a></i>";
     }
 
 }
