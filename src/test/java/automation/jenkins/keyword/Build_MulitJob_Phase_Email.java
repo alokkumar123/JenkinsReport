@@ -4,7 +4,7 @@ import automation.jenkins.responses.JSONEntityResponseValues;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
 import automation.jenkins.utils.HTMLWriter;
-import automation.jenkins.utils.convertTimeFormat;
+import automation.jenkins.utils.ConvertTimeFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
@@ -12,20 +12,22 @@ import org.codehaus.jettison.json.JSONException;
 public class Build_MulitJob_Phase_Email {
 
     public String emailBody = null;
+    public String dateTable = "";
     public String greenBuildColorCode = "#2EFE2E"; 
     public String unstableBuildColorCode = "#FFFF00";
     public String failedBuildColorCode = "#F21010";
     public String abortedBuildColorCode = "D3D3D3";
-    String jenkinsURL = System.getProperty("jenkinsURL", "http://admin1.001.stage.trust.cloud.cengage.com/");
+    public String analyticsChartsScript = "";
     public String multiJobName = System.getProperty("multiJobName", "MultiJob_Trust_Staging_Test");
+    public String projectName = System.getProperty("projectName", "TRUST");
+    
+    String jenkinsURL = System.getProperty("jenkinsURL", "http://admin1.001.stage.trust.cloud.cengage.com/");
     String multiphaseJobAPIURL = jenkinsURL + "job/" + multiJobName + "/api/json";
     String replyto = System.getProperty("replyTo", "harshsehgal@qainfotech.com");
     String analyticsFlag = System.getProperty("buildAnalytics", "no");
-    public String projectName = System.getProperty("projectName", "TRUST");
-    public String analyticsChartsScript = "";
+   
     JSONEntityResponseValues jsonObject = new JSONEntityResponseValues();
-    convertTimeFormat timeConvert;
-    public String dateTable = "";
+    ConvertTimeFormat timeConvert;
 
     public void buildMulitphaseJobList() {
         jsonObject.initiliazeEntity(multiphaseJobAPIURL);
@@ -46,9 +48,9 @@ public class Build_MulitJob_Phase_Email {
             emailBody += "</head><body>";
             emailBody += "\n<p>Hello All,<br />";
             emailBody += "\n<br />";
-            emailBody += "\n<i> Greetings of the day!</i><br />";
+            emailBody += "\n Greetings of the day!<br />";
             emailBody += "\n<br />";
-            emailBody += "\nPlease find below the execution result of <b>" + multiJobName + "</b></p>";
+            emailBody += "\nPlease find below the execution results of <i><b>" + multiJobName + " Jenkins job:-" + "</b></i></p>";
             
 //            if (JSONEntityResponseValues.getJSONResponseOnlyForKey("color").contains("yellow")) {
 //                emailBody += "<br><table border=\"1\"><tr><td align=\"center\"><font color = Black>" + multiJobName + "</font> </b></td><td bgcolor=\"" + unstableBuildColorCode + " align=\"center\"><font color = Black>FAIL</font></b></td></tr>";
@@ -64,7 +66,7 @@ public class Build_MulitJob_Phase_Email {
             
             JSONArray entityValues = JSONEntityResponseValues.getJSONResponse("downstreamProjects");
             emailBody += "<table border=\"1\">";
-            emailBody += "<tr></tr><td align=\"center\"><font color = Black><b>Job Name</b></font></td><td><b><font color = Black>Build Status</b></font></td><td><b><td align=\"center\"><font color = Black>Observations </b></font></td></tr>";
+            emailBody += "<tr><td align=\"center\"><font color = Black><b>Job Name</b></font></td><td><b><font color = Black>Build Health</b></font></td><td><td align=\"center\"><b><font color = Black>Comments</b></font></td></tr>";
             for (int i = 0; i < entityValues.length(); i++) {
                 String buildURL = entityValues.getJSONObject(i).getString("url");
                 String screenshotURL=null,consoleURL=null;
@@ -76,10 +78,10 @@ public class Build_MulitJob_Phase_Email {
                     emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td>"
                             + "<td bgcolor=\"" + unstableBuildColorCode + " align=\"center\"><font color = Black>FAIL</font></b></td>";
                 } else if (buildColor.contains("green") || buildColor.contains("blue")) {
-                    emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td><td bgcolor=\"" + greenBuildColorCode + " align=\"center\"><font color = Black>PASS</font></b></td>";
+                    emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td><td bgcolor=\"" + greenBuildColorCode + " align=\"center\"><b><font color = Black>PASS</font></b></td>";
                 } else if (buildColor.contains("aborted")) {
                     emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td>"
-                            + "<td bgcolor=\"" + abortedBuildColorCode + " align=\"center\"><font color = Black>ABORTED</font></b></td>";
+                            + "<td bgcolor=\"" + abortedBuildColorCode + " align=\"center\"><b><font color = Black>ABORTED</font></b></td>";
                 }
                 
 //              emailBody += "<table border=\"2\">";
@@ -87,7 +89,7 @@ public class Build_MulitJob_Phase_Email {
                 
                 if (buildColor.contains("yellow") || buildColor.contains("red")) {
                     screenshotURL = buildURL+"ws/target/";
-                    emailBody += "<td colspan=\"2\" bgcolor=\"#E3CEF6\" align=\"center\"><font color = Black><a href=" + screenshotURL + ">SCREENSHOTS</a></font></b></td></tr>";
+                    emailBody += "<td colspan=\"2\" bgcolor=\"#E3CEF6\" align=\"center\"><font color = Black><a href=" + screenshotURL + ">ScreenShot</a></font></b></td></tr>";
                 } else if(buildColor.contains("aborted")){
                     consoleURL=buildURL+getLastBuildNumber(buildURL+"api/json")+"/console";
                     emailBody += "<td colspan=\"2\" bgcolor=\"#E3CEC6\" align=\"center\"><font color = Black><a href=" + consoleURL + ">CONSOLE OUTPUT</a></font></b></td></tr>";
@@ -235,7 +237,7 @@ public class Build_MulitJob_Phase_Email {
                 + "       dataTable.addRows([\n";
 
         String localEntity = JSONEntityResponseValues.locallyIntialiseEntity(URI);
-        timeConvert = new convertTimeFormat();
+        timeConvert = new ConvertTimeFormat();
         try {
 
             JSONArray buildURL = JSONEntityResponseValues.getJSONResponse(localEntity, "builds"); //fetching from global entity

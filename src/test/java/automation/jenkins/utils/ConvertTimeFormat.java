@@ -2,7 +2,7 @@ package automation.jenkins.utils;
 
 import java.util.Date;
 
-public class convertTimeFormat {
+public class ConvertTimeFormat {
 
     Date expiry;
     String realTime;
