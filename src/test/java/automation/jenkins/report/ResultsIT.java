@@ -28,13 +28,14 @@ public class ResultsIT {
 
     String today;
     String host = "smtp.qainfotech.com";
-    String from = "ramanrayat@qainfotech.com";
-    String password = "Sep@2016";
+    String from = "harshsehgal@qainfotech.com";
+    String password = "Webmail@3213";
     int port = 587;
     
     String ccEmail = "manmohansingh@qainfotech.com";
-    String emailMap[] = {"Chris.gaudreau@cengage.com", "sasha.freese@cengage.com","ramanrayat@qainfotech.com","namansharma@qainfotech.com", "Pat.Call@cengage.com", "Joby.Joseph@contractor.cengage.com", "abhishek.ranjan@contractor.cengage.com", "Caroline.Foglietta@cengage.com","Pankaj.Kumar@contractor.cengage.com"};
-    String emailMap2[] = {"kunal.chauhan@qainfotech.com", "jigsawautomationqa@qainfotech.com", "mtqqa@qainfotech.com"};
+    String ccEmail1 = "harshsehgal@qainfotech.com";
+    // String emailMap[] = {"Chris.gaudreau@cengage.com", "sasha.freese@cengage.com","ramanrayat@qainfotech.com","namansharma@qainfotech.com", "Pat.Call@cengage.com", "Joby.Joseph@contractor.cengage.com", "abhishek.ranjan@contractor.cengage.com", "Caroline.Foglietta@cengage.com","Pankaj.Kumar@contractor.cengage.com"};
+    // String emailMap2[] = {"kunal.chauhan@qainfotech.com", "jigsawautomationqa@qainfotech.com", "mtqqa@qainfotech.com"};
     
     public void sendResultsMail(String email_text, String projectName) throws MessagingException, IOException {
         if (true) {
@@ -88,7 +89,8 @@ public class ResultsIT {
 
     private void setMailRecipient(Message message) throws AddressException, MessagingException, IOException {
         String list = System.getProperty("mailingList", "onsite");
-        if (list.equals("local")) {
+        
+        /*if (list.equals("local")) {
             for (String val : emailMap2) {
                 System.out.println("Email Ids:- " + val);
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(val));
@@ -98,8 +100,9 @@ public class ResultsIT {
                 System.out.println("Email Ids:- " + val);
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(val));
             }
-        }
+        }*/
         message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail));
+        message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail1));
     }
 
     private static void addAttachment(Multipart multipart, MimeBodyPart messageBodyPart, String filepath)
@@ -112,16 +115,16 @@ public class ResultsIT {
         multipart.addBodyPart(messageBodyPart);
     }
 
-    class Authenticator extends javax.mail.Authenticator {
-        private final PasswordAuthentication authentication;
-        
-        public Authenticator(String username, String password) {
-            authentication = new PasswordAuthentication(username, password);
-        }
+	class Authenticator extends javax.mail.Authenticator {
+		private final PasswordAuthentication authentication;
 
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-            return authentication;
-        }
-    }
+		public Authenticator(String username, String password) {
+			authentication = new PasswordAuthentication(username, password);
+		}
+
+		@Override
+		protected PasswordAuthentication getPasswordAuthentication() {
+			return authentication;
+		}
+	}
 }
