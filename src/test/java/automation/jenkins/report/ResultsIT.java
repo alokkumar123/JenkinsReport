@@ -27,10 +27,10 @@ import javax.mail.internet.MimeMultipart;
 public class ResultsIT {
 
     String today;
-    String host = "smtp.qainfotech.com";
-    String from = "harshsehgal@qainfotech.com";
-    String password = "Webmail@3213";
-    int port = 587;
+    String host = "smtp.gmail.com";
+    String from = "automation.resultsqait@gmail.com";
+    String password = "QaitAutomation";
+    int port = 465;
     
     String ccEmail = "manmohansingh@qainfotech.com";
     String ccEmail1 = "harshsehgal@qainfotech.com";
