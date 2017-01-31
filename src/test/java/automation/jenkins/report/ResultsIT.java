@@ -102,7 +102,10 @@ public class ResultsIT {
             }
         }*/
         message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail));
+        System.out.println("Email Ids:- " + ccEmail);
+        
         message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail1));
+        System.out.println("Email Ids:- " + ccEmail1);
     }
 
     private static void addAttachment(Multipart multipart, MimeBodyPart messageBodyPart, String filepath)

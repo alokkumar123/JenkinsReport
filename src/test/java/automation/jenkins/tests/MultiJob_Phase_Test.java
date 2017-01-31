@@ -16,13 +16,16 @@ public class MultiJob_Phase_Test extends Build_MulitJob_Phase_Email {
     @Test
     public void createEmailableReportForMultiphaseJob() {
         buildMulitphaseJobList();
-//        addAnalyticsCharts();
+//      addAnalyticsCharts();
         ResultsIT results = new ResultsIT();
         emailBody = prettyPrintHTML(emailBody);
+        System.out.println("******** EMAIL BODY:- ********");
         System.out.println(emailBody);
         try {
             results.sendResultsMail(emailBody, multiJobName + "  Results");
         } catch (MessagingException | IOException e) {
+        	System.out.println("Printing the stacktrance:-");
+        	e.printStackTrace();
         }
     }
 
