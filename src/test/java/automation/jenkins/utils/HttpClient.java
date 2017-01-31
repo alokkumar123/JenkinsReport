@@ -10,15 +10,14 @@ import com.sun.jersey.api.json.JSONConfiguration;
 
 public class HttpClient {
 
-    private static String Jenkins_UserName = "RRayat", Jenkins_Password = "Ramray01";
+    private static String Jenkins_UserName = "Asaxena", Jenkins_Password = "Aditya1";
 
     public HttpClient() {
 
     }
-
+    
     public ClientResponse getHttpResponse(String resourceURL) {
         Client client = getResponseFromParty();
-
         WebResource webResourceGet = client.resource(resourceURL);
         ClientResponse response = webResourceGet.get(ClientResponse.class);
         return response;
