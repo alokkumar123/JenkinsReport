@@ -32,8 +32,8 @@ public class ResultsIT {
     String password = "QaitAutomation";
     int port = 465;
     
-    String ccEmail = "manmohansingh@qainfotech.com";
-    String ccEmail1 = "harshsehgal@qainfotech.com";
+    String toEmail = "manmohansingh@qainfotech.com";
+    String ccEmail = "harshsehgal@qainfotech.com";
     // String emailMap[] = {"Chris.gaudreau@cengage.com", "sasha.freese@cengage.com","ramanrayat@qainfotech.com","namansharma@qainfotech.com", "Pat.Call@cengage.com", "Joby.Joseph@contractor.cengage.com", "abhishek.ranjan@contractor.cengage.com", "Caroline.Foglietta@cengage.com","Pankaj.Kumar@contractor.cengage.com"};
     // String emailMap2[] = {"kunal.chauhan@qainfotech.com", "jigsawautomationqa@qainfotech.com", "mtqqa@qainfotech.com"};
     
@@ -78,7 +78,8 @@ public class ResultsIT {
         messageBodyPart.setContent(mail_data, "text/html");
         MimeMultipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageBodyPart);
-        addAttachment(multipart, messageBodyPart, "analytics.html");
+        
+        // addAttachment(multipart, messageBodyPart, "analytics.html");
 
         return multipart;
     }
@@ -101,14 +102,15 @@ public class ResultsIT {
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(val));
             }
         }*/
-        message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail));
-        System.out.println("Email Ids:- " + ccEmail);
+        message.addRecipient(Message.RecipientType.CC, new InternetAddress(toEmail));
+        System.out.println("Email Id of To:- " + toEmail);
         
-        message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail1));
-        System.out.println("Email Ids:- " + ccEmail1);
+        message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail));
+        System.out.println("Email Id of CC:- " + ccEmail);
     }
 
-    private static void addAttachment(Multipart multipart, MimeBodyPart messageBodyPart, String filepath)
+    @SuppressWarnings("unused")
+	private static void addAttachment(Multipart multipart, MimeBodyPart messageBodyPart, String filepath)
             throws MessagingException {
         messageBodyPart = new MimeBodyPart();
         File f = new File(filepath);
