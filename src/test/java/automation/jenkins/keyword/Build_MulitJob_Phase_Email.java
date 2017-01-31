@@ -55,7 +55,7 @@ public class Build_MulitJob_Phase_Email {
 //            } else if (JSONEntityResponseValues.getJSONResponseOnlyForKey("color").contains("green") || JSONEntityResponseValues.getJSONResponseOnlyForKey("color").contains("blue")) {
 //                emailBody += "<br><table border=\"2\"><tr><td align=\"center\"><font color = Black> <font color = Black>" + multiJobName + "</font></b></td><td bgcolor=\"" + greenBuildColorCode + " align=\"center\"><font color = Black>PASS</font></b></td></tr>";
 //            }
-////            emailBody += "<table border=\"2\">";
+//            emailBody += "<table border=\"2\">";
 //            emailBody += "<tr><td bgcolor=\"#F6CECE\" align=\"center\"><font color = Black>Build Number</a></font></b></td>";
 //            emailBody += "<td bgcolor=\"#E3CEF6\" align=\"center\"><font color = Black>" + entityValue.getString("number") + "</a></font></b></td></tr>";
 //            emailBody += "<tr><td bgcolor=\"#F6CECE\" align=\"center\"><font color = Black>Last Build URL</a></font></b></td>";
@@ -63,7 +63,7 @@ public class Build_MulitJob_Phase_Email {
 //                    + "</a></font></b></td></tr></table><br><br>";
             
             JSONArray entityValues = JSONEntityResponseValues.getJSONResponse("downstreamProjects");
-            emailBody += "<table border=\"0\">";
+            emailBody += "<table border=\"1\">";
             emailBody += "<tr></tr><td align=\"center\"><font color = Black><b>Job Name</b></font></td><td><b><font color = Black>Build Status</b></font></td><td><b><td align=\"center\"><font color = Black>Observations </b></font></td></tr>";
             for (int i = 0; i < entityValues.length(); i++) {
                 String buildURL = entityValues.getJSONObject(i).getString("url");
@@ -189,7 +189,6 @@ public class Build_MulitJob_Phase_Email {
                         + "</html>";
                 HTMLWriter htmlWriter = new HTMLWriter();
                 htmlWriter.writeHTMLFile(analyticsChartsScript);
-
             } catch (Exception e) {
 
             }
@@ -212,7 +211,6 @@ public class Build_MulitJob_Phase_Email {
         String localEntity = JSONEntityResponseValues.locallyIntialiseEntity(URI);
         int passCounter = 0;
         try {
-
             JSONArray buildURL = JSONEntityResponseValues.getJSONResponse(localEntity, "builds"); //fetching from global entity
             for (int i = 0; i < buildURL.length(); i++) {
                 String currentConsoleOutput = buildURL.getJSONObject(i).getString("url") + "api/json"; //Everything is stored locally. 
@@ -256,7 +254,6 @@ public class Build_MulitJob_Phase_Email {
             dateTable += " ]);";
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return dateTable;
     }
@@ -271,12 +268,8 @@ public class Build_MulitJob_Phase_Email {
             System.out.println("Error in retrieving builds count");
             return 0;
         }
-
     }
-
-//    public int getFailCount(String URL) {
-//
-//    }
+    
     public void buildFailedJobEmail(String status, String buildURL) {
         try {
             JSONArray entityValues = null;

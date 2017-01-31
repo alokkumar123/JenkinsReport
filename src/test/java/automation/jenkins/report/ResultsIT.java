@@ -32,10 +32,8 @@ public class ResultsIT {
     String password = "QaitAutomation";
     int port = 465;
     
-    String toEmail = "manmohansingh@qainfotech.com";
-    String ccEmail = "harshsehgal@qainfotech.com";
-    // String emailMap[] = {"Chris.gaudreau@cengage.com", "sasha.freese@cengage.com","ramanrayat@qainfotech.com","namansharma@qainfotech.com", "Pat.Call@cengage.com", "Joby.Joseph@contractor.cengage.com", "abhishek.ranjan@contractor.cengage.com", "Caroline.Foglietta@cengage.com","Pankaj.Kumar@contractor.cengage.com"};
-    // String emailMap2[] = {"kunal.chauhan@qainfotech.com", "jigsawautomationqa@qainfotech.com", "mtqqa@qainfotech.com"};
+    String emailTo[] = {"Abhishek.Ranjan@contractor.cengage.com"};
+    String emailCC[] = {"HarshSehgal@qainfotech.com", "Aditya.Saxena@qainfotech.com"};
     
     public void sendResultsMail(String email_text, String projectName) throws MessagingException, IOException {
         if (true) {
@@ -89,24 +87,17 @@ public class ResultsIT {
     }
 
     private void setMailRecipient(Message message) throws AddressException, MessagingException, IOException {
-        String list = System.getProperty("mailingList", "onsite");
+        @SuppressWarnings("unused")
+		String list = System.getProperty("mailingList", "onsite");
         
-        /*if (list.equals("local")) {
-            for (String val : emailMap2) {
-                System.out.println("Email Ids:- " + val);
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(val));
-            }
-        } else {
-            for (String val : emailMap) {
-                System.out.println("Email Ids:- " + val);
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(val));
-            }
-        }*/
-        message.addRecipient(Message.RecipientType.CC, new InternetAddress(toEmail));
-        System.out.println("Email Id of To:- " + toEmail);
-        
-        message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail));
-        System.out.println("Email Id of CC:- " + ccEmail);
+        for (String toRecipient : emailTo) {
+        	System.out.println("Email Ids of To Recipient:- " + toRecipient);
+        	message.addRecipient(Message.RecipientType.TO, new InternetAddress(toRecipient));
+        }
+        for (String CcRecipient : emailCC) {
+        	System.out.println("Email Ids of CC Recipient:- " + CcRecipient);
+        	message.addRecipient(Message.RecipientType.CC, new InternetAddress(CcRecipient));
+        }
     }
 
     @SuppressWarnings("unused")
