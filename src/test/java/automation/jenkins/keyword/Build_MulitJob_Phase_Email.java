@@ -66,7 +66,7 @@ public class Build_MulitJob_Phase_Email {
             
             JSONArray entityValues = JSONEntityResponseValues.getJSONResponse("downstreamProjects");
             emailBody += "<table border=\"1\">";
-            emailBody += "<tr><td align=\"center\"><font color = Black><b>Job Name</b></font></td><td><b><font color = Black>Build Health</b></font></td><td><td align=\"center\"><b><font color = Black>Refer to Emailable Report</b></font></td></tr>";
+            emailBody += "<tr><td align=\"center\"><font color = Black><b>Job Name</b></font></td><td><b><font color = Black>Build Health</b></font></td><td><td align=\"center\"><b><font color = Black>Comments</b></font></td></tr>";
             for (int i = 0; i < entityValues.length(); i++) {
                 String buildURL = entityValues.getJSONObject(i).getString("url");
                 String screenshotURL=null,consoleURL=null;
@@ -76,12 +76,12 @@ public class Build_MulitJob_Phase_Email {
                 }
                 if (buildColor.contains("yellow") || buildColor.contains("red")) {
                     emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td>"
-                            + "<td bgcolor=\"" + unstableBuildColorCode + " align=\"center\"><b><font color = Black>FAIL</font></b></td>";
+                            + "<td bgcolor=\"" + unstableBuildColorCode + " align=\"center\"><b><font color = Black>FAIL</font></b></td></tr>";
                 } else if (buildColor.contains("green") || buildColor.contains("blue")) {
-                    emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td><td bgcolor=\"" + greenBuildColorCode + " align=\"center\"><b><font color = Black>PASS</font></b></td>";
+                    emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td><td bgcolor=\"" + greenBuildColorCode + " align=\"center\"><b><font color = Black>PASS</font></b></td></tr>";
                 } else if (buildColor.contains("aborted")) {
                     emailBody += "<tr><td align=\"center\"><font color = Black>" + entityValues.getJSONObject(i).getString("name").toUpperCase() + "</font></b></td>"
-                            + "<td bgcolor=\"" + abortedBuildColorCode + " align=\"center\"><b><font color = Black>ABORTED</font></b></td>";
+                            + "<td bgcolor=\"" + abortedBuildColorCode + " align=\"center\"><b><font color = Black>ABORTED</font></b></td></tr>";
                 }
                 
 //              emailBody += "<table border=\"2\">";
