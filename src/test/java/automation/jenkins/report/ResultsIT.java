@@ -33,7 +33,7 @@ public class ResultsIT {
 	int port = 465;
 
 	String emailTo[] = { "Abhishek.Ranjan@contractor.cengage.com", "Steffin.Spears@cengage.com" };
-	String emailCC[] = { "HarshSehgal@qainfotech.com", "Aditya.Saxena@qainfotech.com", "AlokKumar@qainfotech.com" };
+	String emailCC[] = { "HarshSehgal@qainfotech.com", "AlokKumar@qainfotech.com" };
 
 	public void sendResultsMail(String email_text, String projectName) throws MessagingException, IOException {
 		if (true) {
