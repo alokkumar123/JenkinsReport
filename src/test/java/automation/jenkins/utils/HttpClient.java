@@ -10,7 +10,7 @@ import com.sun.jersey.api.json.JSONConfiguration;
 
 public class HttpClient {
 
-    private static String Jenkins_UserName = "Asaxena", Jenkins_Password = "Aditya1";
+    private static String Jenkins_UserName = "akumar", Jenkins_Password = "Cengage1";
 
     public HttpClient() {
 

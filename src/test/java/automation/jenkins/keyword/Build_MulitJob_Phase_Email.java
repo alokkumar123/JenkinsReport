@@ -33,7 +33,7 @@ public class Build_MulitJob_Phase_Email {
         jsonObject.initiliazeEntity(multiphaseJobAPIURL);
         try {
             System.out.println("Jenkins API Final URL :- " + multiphaseJobAPIURL);
-            System.out.println("Now fetching JSON for all failed Jobs");
+            System.out.println("Now fetching JSON for all Jobs");
             @SuppressWarnings("unused")
 			JSONObject entityValue = JSONEntityResponseValues.getJSONResponseForNode("lastBuild");
             emailBody = "<html>";
