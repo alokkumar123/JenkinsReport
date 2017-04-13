@@ -32,8 +32,8 @@ public class ResultsIT {
 	String password = "QaitAutomation";
 	int port = 465;
 
-	String emailTo[] = {"HarshSehgal@qainfotech.com",};
-	String emailCC[] = { "AlokKumar@qainfotech.com" };
+	String emailTo[] = {"steffin.spears@cengage.com","Abhishek.Ranjan@contractor.cengage.com"};
+	String emailCC[] = { "HarshSehgal@qainfotech.com","AlokKumar@qainfotech.com" };
 
 	public void sendResultsMail(String email_text, String projectName) throws MessagingException, IOException {
 		if (true) {
