@@ -28,12 +28,12 @@ public class ResultsIT {
 
 	String today;
 	String host = "smtp.gmail.com";
-	String from = "automation.resultsqait@gmail.com";
+	String from = "Emai id of sender";
 	String password = "QaitAutomation";
 	int port = 465;
 
-	String emailTo[] = {"steffin.spears@cengage.com","Abhishek.Ranjan@contractor.cengage.com"};
-	String emailCC[] = { "HarshSehgal@qainfotech.com","AlokKumar@qainfotech.com" };
+	String emailTo[] = {"Email id of recepients"};
+	String emailCC[] = { "Email id of cc" };
 
 	public void sendResultsMail(String email_text, String projectName) throws MessagingException, IOException {
 		if (true) {

@@ -21,9 +21,9 @@ public class Build_MulitJob_Phase_Email {
     public String multiJobName = System.getProperty("multiJobName", "MultiJob_Trust_Staging_Test");
     public String projectName = System.getProperty("projectName", "TRUST");
     
-    String jenkinsURL = System.getProperty("jenkinsURL", "http://admin1.001.stage.trust.cloud.cengage.com/");
+    String jenkinsURL = System.getProperty("jenkinsURL", "Url of your Jenkins");
     String multiphaseJobAPIURL = jenkinsURL + "job/" + multiJobName + "/api/json";
-    String replyto = System.getProperty("replyTo", "harshsehgal@qainfotech.com");
+    String replyto = System.getProperty("replyTo", "Email id to whom you want reply to");
     String analyticsFlag = System.getProperty("buildAnalytics", "no");
    
     JSONEntityResponseValues jsonObject = new JSONEntityResponseValues();
